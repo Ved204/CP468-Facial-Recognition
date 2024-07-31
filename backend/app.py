@@ -1,6 +1,7 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from reverseProxy import proxyRequest
+from classifier import classifyImage
 
 MODE = os.getenv('FLASK_ENV')
 DEV_SERVER_URL = 'http://localhost:3000/'
@@ -18,3 +19,12 @@ def index(path=''):
         return proxyRequest(DEV_SERVER_URL, path)
     else:
         return render_template("index.html")    
+    
+@app.route('/classify', methods=['POST'])
+def classify():
+    if (request.files['image']): 
+        file = request.files['image']
+
+        result = classifyImage(file)
+        print('Model classification: ' + result)        
+        return result
