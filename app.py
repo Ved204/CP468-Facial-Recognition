@@ -1,5 +1,4 @@
 import gradio as gr
-
 from keras.preprocessing.image import img_to_array
 import imutils
 import cv2
@@ -8,12 +7,9 @@ import numpy as np
 
 # parameters for loading data and images
 detection_model_path = "config/face-detector.xml"
-emotion_model_path = "models/ensemble_model.hdf5"
 
 # hyper-parameters for bounding boxes shape
-# loading models
 face_detection = cv2.CascadeClassifier(detection_model_path)
-emotion_classifier = load_model(emotion_model_path, compile=False)
 EMOTIONS = ["anger", "disgust", "fear", "happy", "sadness", "surprise", "contempt"]
 
 # Spotify playlists for each emotion
@@ -27,7 +23,20 @@ PLAYLISTS = {
     "contempt": "https://open.spotify.com/playlist/37i9dQZF1EIgau9in6RKng?si=d32e174b46f147d6",
 }
 
-def predict(frame):
+# Load models
+models = {
+    "Custom Model (Scratch)": "models/custom_model_scratch.hdf5",
+    "VGG16 Model": "models/vgg16_emotion_model.hdf5",
+    "ResNet50 Model": "models/resnet50_emotion_model.hdf5",
+    "InceptionV3 Model": "models/inceptionv3_emotion_model.hdf5",
+    "Ensemble Model": "models/ensemble_model.hdf5",
+}
+
+
+def predict(frame, model_name):
+    # Load the selected model
+    emotion_classifier = load_model(models[model_name], compile=False)
+
     frame = imutils.resize(frame, width=300)
     gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
     faces = face_detection.detectMultiScale(
@@ -71,9 +80,13 @@ def predict(frame):
 
     return frameClone, html_link
 
+
 inp = gr.components.Image(source="webcam", label="Your face", type="numpy")
 out_image = gr.components.Image(label="Predicted Emotion", type="numpy")
 out_html = gr.components.HTML(label="Spotify Playlist")
+dropdown = gr.components.Dropdown(
+    choices=list(models.keys()), label="Select Model", default="Ensemble Model"
+)
 
 title = "Emotion Classification Model"
 description = """
@@ -85,7 +98,7 @@ thumbnail = "test_images/demo_pic.png"
 
 interface = gr.Interface(
     fn=predict,
-    inputs=inp,
+    inputs=[inp, dropdown],
     outputs=[out_image, out_html],
     capture_session=True,
     title=title,
