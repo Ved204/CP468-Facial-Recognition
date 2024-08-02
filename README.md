@@ -1,5 +1,7 @@
 # Emotion Classifier Model (CP468 Final Project)
 
+![Demo Image](test_images/demo_pic.png)
+
 ## Kaggle Dataset
 [CK+ Dataset](https://www.kaggle.com/datasets/shuvoalok/ck-dataset)
 
