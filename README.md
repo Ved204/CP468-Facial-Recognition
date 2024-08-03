@@ -1,4 +1,4 @@
-# Emotion Classifier Model (CP468 Final Project)
+# Emotion Classifier Model
 
 ![Demo Image](test_images/demo_pic.png)
 
