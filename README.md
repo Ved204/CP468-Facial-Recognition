@@ -37,6 +37,10 @@ To demo the model, please refer to `app.py`, which builds a Gradio app and integ
 
 *Note: The models should be all preloaded when app is launched and can be selected on the app (Select Model Dropdown Menu)
 
+## References
+
+- Lienhart, Rainer. `config/face-detector.xml`. Retrieved from [OpenCV GitHub Repository](https://github.com/opencv/opencv/tree/master/data/haarcascades) for use in facial detection projects.
+
 ## Authors
 - Zaki
 - Ved
