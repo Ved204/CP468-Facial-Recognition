@@ -28,7 +28,14 @@ Results can be shown via graphs and manual tests.
 ## Demo
 To demo the model, please refer to `app.py`, which builds a Gradio app and integrates with Spotify to provide a preset list of playlists pertaining to each emotion.
 
-*Note: Install dependencies using `requirements.txt`.
+## Instructions
+1. Clone the code base `git clone https://github.com/Ved204/CP468-Facial-Recognition.git`
+2. Make a virtual environment `python -m venv env` and activate `source env/bin/activate` (For Mac), Windows ([Documentation](https://docs.python.org/3/library/venv.html))
+3. Install packages `pip install -r requirements.txt`
+4. Now run the streamlit app using `python app.py` or `streamlit app.py`
+
+
+*Note: The models should be all preloaded when app is launched and can be selected on the app (Select Model Dropdown Menu)
 
 ## Authors
 - Zaki
